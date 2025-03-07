@@ -346,7 +346,7 @@ def registrar_usuario(request):
                 }
 
                 response = requests.post(
-                    "http://127.0.0.1:8000/api/v1/registrar/usuario",  # Ajusta según tu API
+                    "http://127.0.0.1:8000/api/v1/registration/registro",  # Ajusta según tu API
                     headers=headers,
                     data=json.dumps(formulario.cleaned_data)
                 )
@@ -381,8 +381,8 @@ def login(request):
 
         try:
             token_acceso = obtener_token_session(
-                formulario.cleaned_data.get("usuario"),
-                formulario.cleaned_data.get("password")
+                formulario.data.get("usuario"),
+                formulario.data.get("password")
             )
 
             if not token_acceso:

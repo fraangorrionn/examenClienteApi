@@ -36,11 +36,11 @@ def obtener_comentario(comentario_id):
     response = requests.get(f"http://127.0.0.1:8000/api/v1/comentarios/{comentario_id}", headers=headers)
 
     print("Código de respuesta:", response.status_code)  # Verificar el código de estado
-    print("Texto de respuesta:", response.text)  # Verificar si devuelve HTML u otra cosa
+    print("Texto de respuesta:", response.text) 
 
     if response.status_code == 200:
         try:
-            return response.json()  # Intentamos parsear solo si la respuesta tiene contenido
+            return response.json() 
         except requests.exceptions.JSONDecodeError:
             print("La API devolvió una respuesta vacía o inválida.")
             return None

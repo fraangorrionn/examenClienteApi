@@ -46,14 +46,6 @@
                 <label class="form-label">Creada Hasta</label>
                 {{ form.fecha_creacion_hasta }}
             </div>
-            <div class="col-md-3">
-                <label class="form-label">Mínimo de Descargas</label>
-                {{ form.descargas_minimas }}
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Máximo de Descargas</label>
-                {{ form.descargas_maximas }}
-            </div>
             <div class="col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Buscar</button>
                 <a href="{% url 'buscar_apps' %}" class="btn btn-secondary">Limpiar</a>
@@ -70,7 +62,6 @@
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Categoría</th>
-                    <th>Descargas</th>
                     <th>Desarrollador</th>
                     <th>Fecha de Creación</th>
                     <th>Acciones</th>
@@ -82,7 +73,6 @@
                     <td>{{ app.nombre }}</td>
                     <td>{{ app.descripcion|default:"-" }}</td>
                     <td>{{ app.categoria|default:"-" }}</td>
-                    <td>{{ app.descargas }}</td>
                     <td>{{ app.desarrollador.usuario.username }}</td>
                     <td>{{ app.fecha_creacion }}</td>
                     <td>

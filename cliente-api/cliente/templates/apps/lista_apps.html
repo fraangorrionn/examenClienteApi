@@ -11,7 +11,6 @@
                 <th>Descripción</th>
                 <th>Desarrollador</th>
                 <th>Fecha Creación</th>
-                <th>Descargas</th>
                 <th>Categoría</th>
             </tr>
         </thead>
@@ -23,7 +22,6 @@
                 <td>{{ app.descripcion|default:"-" }}</td> <!-- Evita valores vacíos -->
                 <td>{{ app.desarrollador }}</td> <!-- Se mostrará el nombre del creador -->
                 <td>{{ app.fecha_creacion|date:"d-m-Y" }}</td> <!-- Formato DD-MM-YYYY -->
-                <td>{{ app.descargas }}</td>
                 <td>{{ app.categoria|default:"-" }}</td> <!-- Evita valores vacíos -->
             </tr>
             {% empty %}

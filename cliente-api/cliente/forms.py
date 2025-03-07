@@ -73,29 +73,16 @@ class MobileAppBusquedaForm(forms.Form):
         label="Creada Hasta",
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
     )
-    descargas_minimas = forms.IntegerField(
-        required=False,
-        label="Mínimo de Descargas",
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 0})
-    )
-    descargas_maximas = forms.IntegerField(
-        required=False,
-        label="Máximo de Descargas",
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 0})
-    )
+
 
     def clean(self):
         cleaned_data = super().clean()
         fecha_creacion_desde = cleaned_data.get('fecha_creacion_desde')
         fecha_creacion_hasta = cleaned_data.get('fecha_creacion_hasta')
-        descargas_minimas = cleaned_data.get('descargas_minimas')
-        descargas_maximas = cleaned_data.get('descargas_maximas')
 
         if fecha_creacion_desde and fecha_creacion_hasta and fecha_creacion_desde > fecha_creacion_hasta:
             self.add_error('fecha_creacion_hasta', "La fecha de creación hasta no puede ser menor que la fecha desde.")
 
-        if descargas_minimas and descargas_maximas and descargas_minimas > descargas_maximas:
-            self.add_error('descargas_maximas', "El número máximo de descargas no puede ser menor que el mínimo.")
 
         return cleaned_data
 
@@ -290,7 +277,6 @@ class RegistroForm(UserCreationForm):
         model = User 
         fields = (
             'nombre',
-            'username',
             'correo',
             'edad',
             'telefono',
