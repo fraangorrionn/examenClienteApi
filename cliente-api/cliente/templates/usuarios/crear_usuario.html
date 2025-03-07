@@ -1,0 +1,26 @@
+{% extends 'principal.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Crear Usuario</h2>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                {% load django_bootstrap5 %} 
+                {% csrf_token %}
+
+                {% bootstrap_form formulario layout="horizontal" %}       
+
+                <div class="text-center mt-4">
+                    {% bootstrap_button "Registrar" button_type="submit" button_class="btn btn-success px-4" %}
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+            Completa los campos para registrar un nuevo usuario.
+        </div>
+    </div>
+</div>
+{% endblock %}

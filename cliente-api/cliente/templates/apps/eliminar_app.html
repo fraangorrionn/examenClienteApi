@@ -1,0 +1,15 @@
+{% extends 'principal.html' %}
+
+{% block title %}Eliminar Aplicación{% endblock %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h2>¿Seguro que quieres eliminar "{{ app.nombre }}"?</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'lista_apps' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

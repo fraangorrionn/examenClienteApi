@@ -1,0 +1,37 @@
+{% extends 'principal.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Aplicaciones desde API</h2>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Desarrollador</th>
+                <th>Fecha Creación</th>
+                <th>Descargas</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in apps %}
+            <tr>
+                <td>{{ app.id }}</td>
+                <td>{{ app.nombre }}</td>
+                <td>{{ app.descripcion|default:"-" }}</td> <!-- Evita valores vacíos -->
+                <td>{{ app.desarrollador }}</td> <!-- Se mostrará el nombre del creador -->
+                <td>{{ app.fecha_creacion|date:"d-m-Y" }}</td> <!-- Formato DD-MM-YYYY -->
+                <td>{{ app.descargas }}</td>
+                <td>{{ app.categoria|default:"-" }}</td> <!-- Evita valores vacíos -->
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">No hay aplicaciones disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

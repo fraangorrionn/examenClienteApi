@@ -1,0 +1,105 @@
+{% extends 'principal.html' %}
+
+{% block title %}Buscar Aplicaciones{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Buscar Aplicaciones</h2>
+
+    <!-- Mostrar errores globales del formulario -->
+    {% if errores %}
+        <div class="alert alert-danger">
+            <strong>Errores encontrados:</strong>
+            <ul>
+                {% for campo, lista_errores in errores.items %}
+                    {% for error in lista_errores %}
+                        <li>{{ campo|capfirst }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="GET" class="border p-3 bg-light rounded">
+        {{ form.non_field_errors }}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Nombre o Descripción</label>
+                {{ form.query }}
+                {{ form.query.errors }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Categoría</label>
+                {{ form.categoria }}
+                {{ form.categoria.errors }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Desarrollador</label>
+                {{ form.desarrollador }}
+                {{ form.desarrollador.errors }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Creada Desde</label>
+                {{ form.fecha_creacion_desde }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Creada Hasta</label>
+                {{ form.fecha_creacion_hasta }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Mínimo de Descargas</label>
+                {{ form.descargas_minimas }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Máximo de Descargas</label>
+                {{ form.descargas_maximas }}
+            </div>
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <a href="{% url 'buscar_apps' %}" class="btn btn-secondary">Limpiar</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Tabla de Resultados -->
+    {% if apps %}
+        <h2 class="mt-4 text-center">Resultados</h2>
+        <table class="table table-striped table-bordered mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Descargas</th>
+                    <th>Desarrollador</th>
+                    <th>Fecha de Creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in apps %}
+                <tr>
+                    <td>{{ app.nombre }}</td>
+                    <td>{{ app.descripcion|default:"-" }}</td>
+                    <td>{{ app.categoria|default:"-" }}</td>
+                    <td>{{ app.descargas }}</td>
+                    <td>{{ app.desarrollador.usuario.username }}</td>
+                    <td>{{ app.fecha_creacion }}</td>
+                    <td>
+                        <!-- Mostrar botones solo si el usuario tiene permisos -->
+                        {% if request.session.token and request.session.usuario.rol == 1 or request.session.usuario.rol == 2 %}
+                            <a href="{% url 'editar_app' app.id %}" class="btn btn-primary btn-sm">Editar</a>
+                            <a href="{% url 'eliminar_app' app.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-warning text-center mt-3">
+            No se encontraron aplicaciones que coincidan con la búsqueda.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

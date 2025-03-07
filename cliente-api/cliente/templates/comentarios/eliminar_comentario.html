@@ -1,0 +1,18 @@
+{% extends 'principal.html' %}
+
+{% block title %}Eliminar Comentario{% endblock %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h2>¿Seguro que quieres eliminar este comentario?</h2>
+    <p><strong>Comentario:</strong> {{ comentario.texto }}</p>
+    <p><strong>Aplicación:</strong> {{ comentario.app.nombre }}</p>
+    <p><strong>Usuario:</strong> {{ comentario.usuario.username }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'lista_comentarios' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

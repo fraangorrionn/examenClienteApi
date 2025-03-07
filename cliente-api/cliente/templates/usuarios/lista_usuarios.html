@@ -1,0 +1,41 @@
+{% extends 'principal.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Usuarios desde API</h2>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Confirmado</th>
+                <th>Fecha Registro</th>
+                <th>Última Conexión</th>
+                <th>Biografía</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.rol_display }}</td>  <!-- Se usa el nombre del rol -->
+                <td>{% if usuario.email_confirmado %}✔{% else %}✖{% endif %}</td>
+                <td>{{ usuario.fecha_registro|date:"d-m-Y" }}</td>  <!-- Formato DD-MM-YYYY -->
+                <td>{{ usuario.ultima_conexion|date:"d-m-Y" }}</td>  <!-- Formato DD-MM-YYYY -->
+                <td>{% if usuario.biografia %}{{ usuario.biografia }}{% else %}-{% endif %}</td>
+                <td>{% if usuario.telefono %}{{ usuario.telefono }}{% else %}-{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="text-center">No hay usuarios disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

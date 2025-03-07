@@ -1,0 +1,23 @@
+{% extends 'principal.html' %}
+
+{% block title %}Actualizar Texto del Comentario{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Actualizar Texto del Comentario</h2>
+
+    <form method="post" class="border p-4 shadow-sm bg-light rounded">
+        {% csrf_token %}
+        {{ formulario.non_field_errors }}
+        
+        <div class="mb-3">
+            <label class="form-label">Texto</label>
+            {{ formulario.texto }}
+            {{ formulario.texto.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        <a href="{% url 'lista_comentarios' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'principal.html' %}
+
+{% block title %}Eliminar Usuario{% endblock %}
+
+{% block content %}
+{% if perms.servidor.delete_usuario %}  
+    <div class="container mt-5 text-center">
+        <h2>¿Seguro que quieres eliminar a {{ usuario.username }}?</h2>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        </form>
+        <a href="{% url 'lista_usuarios' %}" class="btn btn-secondary mt-3">Cancelar</a>
+    </div>
+{% else %}
+    <div class="container mt-5 text-center">
+        <p class="text-danger">No tienes permisos para eliminar usuarios. Contacta al administrador.</p>
+    </div>
+{% endif %}
+{% endblock %}
